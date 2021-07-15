@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,10 @@
 		24C595D826A03AC400E90ADC /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C595D726A03AC400E90ADC /* GameModel.swift */; };
 		24C595DA26A059D300E90ADC /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C595D926A059D300E90ADC /* GameDetailViewController.swift */; };
 		24C595DD26A069C800E90ADC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C595DC26A069C800E90ADC /* HomeViewController.swift */; };
+		24C595E026A0932000E90ADC /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 24C595DF26A0932000E90ADC /* SDWebImage */; };
+		24C595E326A0995300E90ADC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C595E226A0995300E90ADC /* TabBarController.swift */; };
+		24C595E826A0ADDE00E90ADC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 24C595E726A0ADDE00E90ADC /* Alamofire */; };
+		24C595EB26A0AE4600E90ADC /* ObjectMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 24C595EA26A0AE4600E90ADC /* ObjectMapper */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +63,7 @@
 		24C595D726A03AC400E90ADC /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		24C595D926A059D300E90ADC /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
 		24C595DC26A069C800E90ADC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		24C595E226A0995300E90ADC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24C595EB26A0AE4600E90ADC /* ObjectMapper in Frameworks */,
+				24C595E026A0932000E90ADC /* SDWebImage in Frameworks */,
+				24C595E826A0ADDE00E90ADC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				24C595DB26A0674F00E90ADC /* Delegates */,
+				24C595E126A0934D00E90ADC /* GetGameData */,
 				24C595D426A030AF00E90ADC /* CollectionViewCell */,
 				24C595DC26A069C800E90ADC /* HomeViewController.swift */,
 				24C595A526A0302000E90ADC /* FavouriteViewController.swift */,
@@ -119,6 +128,7 @@
 				24C595AF26A0302200E90ADC /* LaunchScreen.storyboard */,
 				24C595B226A0302200E90ADC /* Info.plist */,
 				24C595AA26A0302000E90ADC /* GameListApp.xcdatamodeld */,
+				24C595E226A0995300E90ADC /* TabBarController.swift */,
 			);
 			path = GameListApp;
 			sourceTree = "<group>";
@@ -145,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				24C595D526A034C000E90ADC /* GameListCollectionViewCell.swift */,
-				24C595D726A03AC400E90ADC /* GameModel.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -157,6 +166,14 @@
 				24C595A126A0302000E90ADC /* AppDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		24C595E126A0934D00E90ADC /* GetGameData */ = {
+			isa = PBXGroup;
+			children = (
+				24C595D726A03AC400E90ADC /* GameModel.swift */,
+			);
+			path = GetGameData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +192,11 @@
 			dependencies = (
 			);
 			name = GameListApp;
+			packageProductDependencies = (
+				24C595DF26A0932000E90ADC /* SDWebImage */,
+				24C595E726A0ADDE00E90ADC /* Alamofire */,
+				24C595EA26A0AE4600E90ADC /* ObjectMapper */,
+			);
 			productName = GameListApp;
 			productReference = 24C5959E26A0302000E90ADC /* GameListApp.app */;
 			productType = "com.apple.product-type.application";
@@ -246,6 +268,11 @@
 				Base,
 			);
 			mainGroup = 24C5959526A0302000E90ADC;
+			packageReferences = (
+				24C595DE26A0932000E90ADC /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				24C595E626A0ADDE00E90ADC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				24C595E926A0AE4600E90ADC /* XCRemoteSwiftPackageReference "ObjectMapper" */,
+			);
 			productRefGroup = 24C5959F26A0302000E90ADC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -292,6 +319,7 @@
 				24C595DA26A059D300E90ADC /* GameDetailViewController.swift in Sources */,
 				24C595A626A0302000E90ADC /* FavouriteViewController.swift in Sources */,
 				24C595D626A034C000E90ADC /* GameListCollectionViewCell.swift in Sources */,
+				24C595E326A0995300E90ADC /* TabBarController.swift in Sources */,
 				24C595DD26A069C800E90ADC /* HomeViewController.swift in Sources */,
 				24C595A226A0302000E90ADC /* AppDelegate.swift in Sources */,
 				24C595A426A0302000E90ADC /* SceneDelegate.swift in Sources */,
@@ -629,6 +657,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		24C595DE26A0932000E90ADC /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.11.1;
+			};
+		};
+		24C595E626A0ADDE00E90ADC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+		24C595E926A0AE4600E90ADC /* XCRemoteSwiftPackageReference "ObjectMapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tristanhimmelman/ObjectMapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		24C595DF26A0932000E90ADC /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24C595DE26A0932000E90ADC /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		24C595E726A0ADDE00E90ADC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24C595E626A0ADDE00E90ADC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		24C595EA26A0AE4600E90ADC /* ObjectMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24C595E926A0AE4600E90ADC /* XCRemoteSwiftPackageReference "ObjectMapper" */;
+			productName = ObjectMapper;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		24C595AA26A0302000E90ADC /* GameListApp.xcdatamodeld */ = {

@@ -6,35 +6,62 @@
 //
 
 import UIKit
+import SDWebImage
+import Alamofire
+import ObjectMapper
 
 class FavouriteViewController: UIViewController {
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     var gameList = [GameModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let game1 = GameModel(id: 1, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game2 = GameModel(id: 2, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game3 = GameModel(id: 3, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game4 = GameModel(id: 4, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game5 = GameModel(id: 5, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game6 = GameModel(id: 6, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game7 = GameModel(id: 7, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        let game8 = GameModel(id: 8, name: "GameName", image: "customImage", released: "released", rating: 0.0, metacritc: 0.0)
-        
-        gameList = [game1, game2, game3, game4, game5, game6, game7, game8]
-        
+        getGameList()
     }
     
+    func getGameList() {
+        
+        let headers : HTTPHeaders = [
+            "x-rapidapi-key": "c94aba3348mshcb6bec24ec775dcp1040d3jsnb1f15c31a317",
+            "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+        ]
+        
+        spinner.startAnimating()
+        spinner.isHidden = false
+        
+        AF.request("https://api.rawg.io/api/games?key=f487e6c36cb54e3a98b0c1bb8cc4a1a4", headers: headers).responseJSON { [self] response in
+            
+            switch response.result {
+            
+            case .success(let jsonData):
+                if let response = jsonData as? Dictionary<String,Any> {
+                    if let gameList = response["results"] as? [[String : Any]] {
+                        for game in gameList {
+                            let mappingGame = Mapper<GameModel>().map(JSON: game)
+                            self.gameList.append(mappingGame!)
+                            self.collectionView.reloadData()
+                        }
+                    } else {
+                        print("Json mapping error")
+                    }
+                }else{
+                    print("JSON parse error")
+                }
+                self.spinner.isHidden = true
+                self.spinner.stopAnimating()
+                
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                self.spinner.isHidden = true
+                self.spinner.stopAnimating()
+            }
+        }
+    }
 }
 
 extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "openGameInformation", sender: self)
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return gameList.count
@@ -46,9 +73,9 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GameListCollectionViewCell", for: indexPath) as? GameListCollectionViewCell {
             
-            cell.gameImage.image = UIImage(named: game.image)
-            cell.gameName.text = game.name
-            cell.gameInformation.text = "\(game.rating) - \(game.released)"
+            cell.gameImage.sd_setImage(with: URL(string: game.image!), placeholderImage: UIImage(named: "customImage"))
+            cell.gameName.text = game.name ?? "Game Name"
+            cell.gameInformation.text = "\(game.rating ?? 0.0) - \(game.released ?? "00.00.00")"
             
             return cell
             
@@ -64,7 +91,7 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = self.view.frame.width - 16.0 * 2
-        let height: CGFloat = 130.0
+        let height: CGFloat = 100.0
         
         return CGSize(width: width, height: height)
     }
