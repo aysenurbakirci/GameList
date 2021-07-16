@@ -268,50 +268,42 @@
         <!--Game Detail View Controller-->
         <scene sceneID="Jg4-nZ-v2M">
             <objects>
-                <viewController id="qbl-Fm-MZH" customClass="GameDetailViewController" customModule="GameListApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qbl-Fm-MZH" customClass="GameDetailViewController" customModule="GameListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B22-rk-7SD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="customImage" translatesAutoresizingMaskIntoConstraints="NO" id="jZ7-OL-U20">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="customImage" translatesAutoresizingMaskIntoConstraints="NO" id="jZ7-OL-U20">
                                 <rect key="frame" x="0.0" y="44" width="414" height="323"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="323" id="7fP-QB-YqJ"/>
-                                    <constraint firstAttribute="width" constant="414" id="FJe-U4-sGH"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name of Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0C6-Jq-s68">
-                                <rect key="frame" x="20" y="331" width="374" height="26.5"/>
+                                <rect key="frame" x="20" y="375" width="374" height="26.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Metacritic Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okZ-eh-Dpo">
-                                <rect key="frame" x="20" y="393" width="374" height="20.5"/>
+                                <rect key="frame" x="20" y="438" width="374" height="20.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYE-ag-pe8">
-                                <rect key="frame" x="20" y="365" width="374" height="20.5"/>
+                                <rect key="frame" x="20" y="409" width="374" height="20.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7N-0f-0PF">
-                                <rect key="frame" x="346" y="263" width="48" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="addFavourite"/>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9gp-Cu-1qk">
-                                <rect key="frame" x="20" y="432" width="374" height="376"/>
+                                <rect key="frame" x="20" y="486" width="374" height="376"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJh-XA-lRS">
-                                        <rect key="frame" x="8" y="8" width="41.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJh-XA-lRS">
+                                        <rect key="frame" x="8" y="8" width="358" height="360"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -325,19 +317,31 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="Pj3-A7-rKu"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="kyE-xS-Ec2"/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7N-0f-0PF">
+                                <rect key="frame" x="346" y="319" width="48" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="addFavourite"/>
+                                <connections>
+                                    <action selector="likeButtonClick:" destination="qbl-Fm-MZH" eventType="touchUpInside" id="qeJ-mM-9oQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Nhw-R1-cGs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="jZ7-OL-U20" firstAttribute="top" secondItem="Nhw-R1-cGs" secondAttribute="top" id="gpc-AK-Zut"/>
-                            <constraint firstItem="jZ7-OL-U20" firstAttribute="leading" secondItem="Nhw-R1-cGs" secondAttribute="leading" id="mY4-D3-eck"/>
-                            <constraint firstItem="jZ7-OL-U20" firstAttribute="trailing" secondItem="Nhw-R1-cGs" secondAttribute="trailing" id="ubq-bO-6Mu"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="gameDescription" destination="JJh-XA-lRS" id="LTM-Bh-n2i"/>
+                        <outlet property="gameImage" destination="jZ7-OL-U20" id="lnC-Kh-YEd"/>
+                        <outlet property="gameMetacritic" destination="okZ-eh-Dpo" id="Txb-ND-G0W"/>
+                        <outlet property="gameName" destination="0C6-Jq-s68" id="Ylh-au-7XC"/>
+                        <outlet property="gameRelease" destination="tYE-ag-pe8" id="pRR-IR-xm7"/>
+                        <outlet property="likeButton" destination="c7N-0f-0PF" id="han-CA-h36"/>
+                        <outlet property="spinner" destination="gAP-RL-TEs" id="KQV-eZ-eSO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ERY-Gv-DOQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="580" y="1704"/>
+            <point key="canvasLocation" x="579.71014492753625" y="1703.5714285714284"/>
         </scene>
     </scenes>
     <resources>

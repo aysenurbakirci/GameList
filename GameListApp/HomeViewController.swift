@@ -23,11 +23,11 @@ class HomeViewController: UIViewController {
     
     var isSearchBarEmpty: Bool {
         let searchText = searchController.searchBar.text
-        return searchText!.count >= 4 ? true : false
+        return searchText!.count >= 4 ? false : true
     }
     
     var isFiltering: Bool {
-        return searchController.isActive && isSearchBarEmpty
+        return searchController.isActive && !isSearchBarEmpty
     }
     
     override func viewDidLoad() {
@@ -134,6 +134,15 @@ extension HomeViewController: UIScrollViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let game = gameList[indexPath.row]
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = sb.instantiateViewController(identifier: "GameDetailViewController") as! GameDetailViewController
+        
+        viewController.game = game
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isFiltering {
             if filteredGameList.count == 0 {
@@ -143,6 +152,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
             return filteredGameList.count
         }
+        self.collectionView.restore()
         return gameList.count
     }
     
@@ -183,6 +193,15 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
+extension HomeViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContextForSearchText(searchText: searchBar.text!)
+    }
+    
+}
+
 extension UICollectionView {
     
     func setEmptyMessage(_ message: String) {
@@ -201,11 +220,4 @@ extension UICollectionView {
     }
     
 }
-extension HomeViewController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContextForSearchText(searchText: searchBar.text!)
-    }
-    
-}
+

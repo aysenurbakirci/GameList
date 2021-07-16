@@ -63,6 +63,15 @@ class FavouriteViewController: UIViewController {
 
 extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let game = gameList[indexPath.row]
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = sb.instantiateViewController(identifier: "GameDetailViewController") as! GameDetailViewController
+        
+        viewController.game = game
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return gameList.count
     }
