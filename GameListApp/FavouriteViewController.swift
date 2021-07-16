@@ -66,11 +66,17 @@ class FavouriteViewController: UIViewController {
 extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tbc = self.tabBarController as! TabBarController
         let game = gameList[indexPath.row]
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let viewController = sb.instantiateViewController(identifier: "GameDetailViewController") as! GameDetailViewController
         
         viewController.game = game
+        if tbc.isGameFavorite(game: game) {
+            viewController.gameIsFavoruite = true
+        } else {
+            viewController.gameIsFavoruite = false
+        }
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     
