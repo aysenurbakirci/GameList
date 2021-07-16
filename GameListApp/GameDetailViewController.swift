@@ -22,7 +22,7 @@ class GameDetailViewController: UIViewController {
     @IBOutlet weak var gameDescription: UILabel!
     
     var game: GameModel? = nil
-    let gameIsFavoruite: Bool = false
+    var gameIsFavoruite: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +92,7 @@ extension GameDetailViewController {
     func imageButtonConfigurationDeleteFavourite() {
         
         likeClickImage.image = likeClickImage.image?.withRenderingMode(.alwaysTemplate)
-        likeClickImage.tintColor = UIColor.orange
+        likeClickImage.tintColor = UIColor.yellow
         likeClickImage.isUserInteractionEnabled = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(removeFavourite))
         likeClickImage.addGestureRecognizer(tapRecognizer)
@@ -107,8 +107,8 @@ extension GameDetailViewController {
         
         do {
             try context.save()
+            likeClickImage.tintColor = UIColor.yellow
             makeAlert(title: "Success", message: "Game is your favorites list now.")
-            likeClickImage.tintColor = UIColor.orange
         } catch {
             makeAlert(title: "Error", message: "The game could not be added to your favorites list.")
         }

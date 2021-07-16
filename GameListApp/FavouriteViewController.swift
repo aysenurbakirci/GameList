@@ -22,7 +22,7 @@ class FavouriteViewController: UIViewController {
     }
     
     func getGameList() {
-        
+        let tbc = self.tabBarController as! TabBarController
         let headers : HTTPHeaders = [
             "x-rapidapi-key": "c94aba3348mshcb6bec24ec775dcp1040d3jsnb1f15c31a317",
             "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -40,7 +40,9 @@ class FavouriteViewController: UIViewController {
                     if let gameList = response["results"] as? [[String : Any]] {
                         for game in gameList {
                             let mappingGame = Mapper<GameModel>().map(JSON: game)
-                            self.gameList.append(mappingGame!)
+                            if tbc.isGameFavorite(game: mappingGame!) {
+                                self.gameList.append(mappingGame!)
+                            }
                             self.collectionView.reloadData()
                         }
                     } else {
