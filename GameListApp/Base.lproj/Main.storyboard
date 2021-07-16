@@ -66,13 +66,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="DzW-rb-4KM">
                                                     <rect key="frame" x="116" y="30" width="121.5" height="56.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Game Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0J-SL-xBC">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0J-SL-xBC">
                                                             <rect key="frame" x="0.0" y="0.0" width="121.5" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="rating - release" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27P-ol-D7m">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rating - release" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27P-ol-D7m">
                                                             <rect key="frame" x="0.0" y="35" width="121.5" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
@@ -317,14 +317,10 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="Pj3-A7-rKu"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="kyE-xS-Ec2"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7N-0f-0PF">
-                                <rect key="frame" x="346" y="319" width="48" height="48"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addFavourite" translatesAutoresizingMaskIntoConstraints="NO" id="Ff6-1Z-hnT">
+                                <rect key="frame" x="354" y="313" width="40" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="addFavourite"/>
-                                <connections>
-                                    <action selector="likeButtonClick:" destination="qbl-Fm-MZH" eventType="touchUpInside" id="qeJ-mM-9oQ"/>
-                                </connections>
-                            </button>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Nhw-R1-cGs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -335,7 +331,7 @@
                         <outlet property="gameMetacritic" destination="okZ-eh-Dpo" id="Txb-ND-G0W"/>
                         <outlet property="gameName" destination="0C6-Jq-s68" id="Ylh-au-7XC"/>
                         <outlet property="gameRelease" destination="tYE-ag-pe8" id="pRR-IR-xm7"/>
-                        <outlet property="likeButton" destination="c7N-0f-0PF" id="han-CA-h36"/>
+                        <outlet property="likeClickImage" destination="Ff6-1Z-hnT" id="F0L-gD-twf"/>
                         <outlet property="spinner" destination="gAP-RL-TEs" id="KQV-eZ-eSO"/>
                     </connections>
                 </viewController>
