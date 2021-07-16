@@ -6,13 +6,29 @@
 //
 
 import UIKit
+import Alamofire
+import SDWebImage
+import ObjectMapper
 
 class HomeViewController: UIViewController {
-
-    var gameList = [GameModel]()
-    @IBOutlet weak var pageControlScrollView: UIScrollView!
     
+    @IBOutlet weak var pageControlScrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    var gameList = [GameModel]()
+    var filteredGameList = [GameModel]()
+    
+    var isSearchBarEmpty: Bool {
+        let searchText = searchController.searchBar.text
+        return searchText!.count >= 4 ? true : false
+    }
+    
+    var isFiltering: Bool {
+        return searchController.isActive && isSearchBarEmpty
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,16 +37,63 @@ class HomeViewController: UIViewController {
         
         pageControl.addTarget(self, action: #selector(pageControlChange(_:)), for: .valueChanged)
         pageControlConfiguration()
-        
+        scrollViewConfiguration()
+        searchControllerConfiguration()
+        getGameList()
     }
     
-    override func viewDidLayoutSubviews() {
-        pageControl.frame = CGRect(x: 10, y: view.frame.size.height - 100, width: view.frame.size.width - 20 , height: 70)
-
-        pageControlScrollView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height * 0.5)
+    private func searchControllerConfiguration() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Search Game"
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
+    }
+    
+    func filterContextForSearchText(searchText: String) {
+        filteredGameList = gameList.filter({ (game: GameModel) -> Bool in
+            return (game.name?.lowercased().contains(searchText.lowercased()))!
+        })
         
-        if pageControlScrollView.subviews.count == 2 {
-            scrollViewConfiguration()
+        collectionView.reloadData()
+    }
+    
+    func getGameList() {
+        
+        let headers : HTTPHeaders = [
+            "x-rapidapi-key": "c94aba3348mshcb6bec24ec775dcp1040d3jsnb1f15c31a317",
+            "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+        ]
+        
+        spinner.startAnimating()
+        spinner.isHidden = false
+        
+        AF.request("https://api.rawg.io/api/games?key=f487e6c36cb54e3a98b0c1bb8cc4a1a4", headers: headers).responseJSON { [self] response in
+            
+            switch response.result {
+            
+            case .success(let jsonData):
+                if let response = jsonData as? Dictionary<String,Any> {
+                    if let gameList = response["results"] as? [[String : Any]] {
+                        for game in gameList {
+                            let mappingGame = Mapper<GameModel>().map(JSON: game)
+                            self.gameList.append(mappingGame!)
+                            self.collectionView.reloadData()
+                        }
+                    } else {
+                        print("Json mapping error")
+                    }
+                }else{
+                    print("JSON parse error")
+                }
+                self.spinner.isHidden = true
+                self.spinner.stopAnimating()
+                
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                self.spinner.isHidden = true
+                self.spinner.stopAnimating()
+            }
         }
     }
     
@@ -49,6 +112,7 @@ extension HomeViewController: UIScrollViewDelegate {
     }
     
     private func scrollViewConfiguration() {
+        
         pageControlScrollView.contentSize = CGSize(width: view.frame.size.width * 3, height: pageControlScrollView.frame.size.height)
         pageControlScrollView.isPagingEnabled = true
         pageControlScrollView.showsHorizontalScrollIndicator = false
@@ -71,18 +135,32 @@ extension HomeViewController: UIScrollViewDelegate {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if isFiltering {
+            if filteredGameList.count == 0 {
+                self.collectionView.setEmptyMessage("The game was not found.")
+            } else {
+                self.collectionView.restore()
+            }
+            return filteredGameList.count
+        }
         return gameList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-//        let game = gameList[indexPath.row]
+        let game: GameModel
+        
+        if isFiltering {
+            game = filteredGameList[indexPath.row]
+        } else {
+            game = gameList[indexPath.row]
+        }
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GameListCollectionViewCell", for: indexPath) as? GameListCollectionViewCell {
             
-            cell.gameImage.image = UIImage(named: "customImage")
-            cell.gameName.text = "Game Name"
-            cell.gameInformation.text = "rating - released"
+            cell.gameImage.sd_setImage(with: URL(string: game.image!), placeholderImage: UIImage(named: "customImage"))
+            cell.gameName.text = game.name ?? "Game Name"
+            cell.gameInformation.text = "\(game.rating ?? 0.0) - \(game.released ?? "00.00.00")"
             
             return cell
             
@@ -98,9 +176,36 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = self.view.frame.width - 16.0 * 2
-        let height: CGFloat = 130.0
+        let height: CGFloat = 100.0
         
         return CGSize(width: width, height: height)
+    }
+    
+}
+
+extension UICollectionView {
+    
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .black
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = .center;
+        messageLabel.sizeToFit()
+
+        self.backgroundView = messageLabel;
+    }
+
+    func restore() {
+        self.backgroundView = nil
+    }
+    
+}
+extension HomeViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContextForSearchText(searchText: searchBar.text!)
     }
     
 }

@@ -9,7 +9,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Favourite View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="Bmg-OY-NbH">
+            <objects>
+                <navigationController id="qHW-1O-20j" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="heart.fill" catalog="system" id="wzr-nJ-eTI"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KCG-FU-mVv">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="8yd-d1-e7W" kind="relationship" relationship="rootViewController" id="cGf-tP-2M6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VpW-BS-f3r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1578" y="1975"/>
+        </scene>
+        <!--FAVOURITE GAMES-->
         <scene sceneID="Lj0-h3-J5i">
             <objects>
                 <viewController id="8yd-d1-e7W" customClass="FavouriteViewController" customModule="GameListApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -28,7 +45,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="t0h-6e-sCp">
-                                    <rect key="frame" x="0.0" y="-5" width="414" height="774"/>
+                                    <rect key="frame" x="0.0" y="-49" width="414" height="774"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <cells>
@@ -49,13 +66,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="DzW-rb-4KM">
                                                     <rect key="frame" x="116" y="30" width="121.5" height="56.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0J-SL-xBC">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Game Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0J-SL-xBC">
                                                             <rect key="frame" x="0.0" y="0.0" width="121.5" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rating - release" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27P-ol-D7m">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="rating - release" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27P-ol-D7m">
                                                             <rect key="frame" x="0.0" y="35" width="121.5" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
@@ -89,6 +106,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="heart.fill" catalog="system" id="CRr-NA-frR"/>
+                    <navigationItem key="navigationItem" title="FAVOURITE GAMES" id="DFJ-0Q-ku0"/>
                     <connections>
                         <outlet property="collectionView" destination="Xzm-dI-yS2" id="hq2-PP-4jc"/>
                         <outlet property="spinner" destination="t0h-6e-sCp" id="FL1-6v-9VW"/>
@@ -98,7 +116,24 @@
             </objects>
             <point key="canvasLocation" x="-504" y="1976"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="3n1-pD-XVr">
+            <objects>
+                <navigationController id="vuN-Y6-rs0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" id="QQs-C2-aPF"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yOS-Gt-kyr">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Kv1-LR-tH9" kind="relationship" relationship="rootViewController" id="dJu-dJ-M2A"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2qN-C3-tw9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1578" y="1310"/>
+        </scene>
+        <!--ALL GAMES-->
         <scene sceneID="O5S-Ej-2nW">
             <objects>
                 <viewController id="Kv1-LR-tH9" customClass="HomeViewController" customModule="GameListApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -107,14 +142,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oob-8l-R2a">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="FwX-Ld-VBS">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="va2-su-exS">
-                                        <rect key="frame" x="0.0" y="51" width="414" height="275"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="375"/>
                                         <subviews>
                                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="wq7-Ja-Cr2">
                                                 <rect key="frame" x="146" y="239" width="122" height="28"/>
@@ -125,7 +156,7 @@
                                         <viewLayoutGuide key="frameLayoutGuide" id="cBo-mm-OMU"/>
                                     </scrollView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Z2f-PN-nsw">
-                                        <rect key="frame" x="0.0" y="326" width="414" height="443"/>
+                                        <rect key="frame" x="0.0" y="375" width="414" height="350"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="15b-OO-om9">
                                             <size key="itemSize" width="414" height="118"/>
@@ -203,9 +234,12 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="house.fill" catalog="system" selectedImage="house.fill" id="g8U-GT-HOI"/>
+                    <navigationItem key="navigationItem" title="ALL GAMES" id="cNc-9r-VEk"/>
                     <connections>
+                        <outlet property="collectionView" destination="Z2f-PN-nsw" id="eYA-si-4uW"/>
                         <outlet property="pageControl" destination="wq7-Ja-Cr2" id="shi-8E-fBd"/>
                         <outlet property="pageControlScrollView" destination="va2-su-exS" id="UPf-yR-qmf"/>
+                        <outlet property="spinner" destination="YbL-dh-T5b" id="C3T-bq-LDT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zxa-7F-zw5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -223,13 +257,13 @@
                     </tabBar>
                     <connections>
                         <outlet property="tabbar" destination="2AZ-bI-otD" id="sis-CW-aAH"/>
-                        <segue destination="Kv1-LR-tH9" kind="relationship" relationship="viewControllers" id="hbD-TM-tv8"/>
-                        <segue destination="8yd-d1-e7W" kind="relationship" relationship="viewControllers" id="giS-AB-4vi"/>
+                        <segue destination="vuN-Y6-rs0" kind="relationship" relationship="viewControllers" id="r3l-Ez-eb7"/>
+                        <segue destination="qHW-1O-20j" kind="relationship" relationship="viewControllers" id="NSd-yJ-feL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CnY-r0-3bZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1398" y="1650"/>
+            <point key="canvasLocation" x="-2841" y="1617"/>
         </scene>
         <!--Game Detail View Controller-->
         <scene sceneID="Jg4-nZ-v2M">

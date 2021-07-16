@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				24C595DB26A0674F00E90ADC /* Delegates */,
-				24C595E126A0934D00E90ADC /* GetGameData */,
+				24C595E126A0934D00E90ADC /* GameData */,
 				24C595D426A030AF00E90ADC /* CollectionViewCell */,
 				24C595DC26A069C800E90ADC /* HomeViewController.swift */,
 				24C595A526A0302000E90ADC /* FavouriteViewController.swift */,
@@ -168,12 +168,12 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		24C595E126A0934D00E90ADC /* GetGameData */ = {
+		24C595E126A0934D00E90ADC /* GameData */ = {
 			isa = PBXGroup;
 			children = (
 				24C595D726A03AC400E90ADC /* GameModel.swift */,
 			);
-			path = GetGameData;
+			path = GameData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
