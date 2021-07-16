@@ -92,7 +92,7 @@ extension GameDetailViewController {
     func imageButtonConfigurationDeleteFavourite() {
         
         likeClickImage.image = likeClickImage.image?.withRenderingMode(.alwaysTemplate)
-        likeClickImage.tintColor = UIColor.yellow
+        likeClickImage.tintColor = UIColor.orange
         likeClickImage.isUserInteractionEnabled = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(removeFavourite))
         likeClickImage.addGestureRecognizer(tapRecognizer)
@@ -100,6 +100,7 @@ extension GameDetailViewController {
     }
     
     @objc func addFavourite() {
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         let newGameID = NSEntityDescription.insertNewObject(forEntityName: "FavouriteGames", into: context)
@@ -107,7 +108,7 @@ extension GameDetailViewController {
         
         do {
             try context.save()
-            likeClickImage.tintColor = UIColor.yellow
+            likeClickImage.tintColor = UIColor.orange
             makeAlert(title: "Success", message: "Game is your favorites list now.")
         } catch {
             makeAlert(title: "Error", message: "The game could not be added to your favorites list.")

@@ -42,22 +42,6 @@ class HomeViewController: UIViewController {
         getGameList()
     }
     
-    private func searchControllerConfiguration() {
-        navigationItem.searchController = searchController
-        searchController.searchBar.placeholder = "Search Game"
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        definesPresentationContext = true
-    }
-    
-    func filterContextForSearchText(searchText: String) {
-        filteredGameList = gameList.filter({ (game: GameModel) -> Bool in
-            return (game.name?.lowercased().contains(searchText.lowercased()))!
-        })
-        
-        collectionView.reloadData()
-    }
-    
     func getGameList() {
         
         let headers : HTTPHeaders = [
@@ -96,11 +80,6 @@ class HomeViewController: UIViewController {
             }
         }
     }
-    
-    @objc private func pageControlChange(_ sender: UIPageControl) {
-        let current = sender.currentPage
-        pageControlScrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
-    }
 
 }
 
@@ -128,6 +107,11 @@ extension HomeViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(floorf(Float(scrollView.contentOffset.x / scrollView.frame.size.width)))
+    }
+    
+    @objc private func pageControlChange(_ sender: UIPageControl) {
+        let current = sender.currentPage
+        pageControlScrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
     }
 }
 
@@ -204,6 +188,22 @@ extension HomeViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContextForSearchText(searchText: searchBar.text!)
+    }
+    
+    private func searchControllerConfiguration() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Search Game"
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
+    }
+    
+    func filterContextForSearchText(searchText: String) {
+        filteredGameList = gameList.filter({ (game: GameModel) -> Bool in
+            return (game.name?.lowercased().contains(searchText.lowercased()))!
+        })
+        
+        collectionView.reloadData()
     }
     
 }
