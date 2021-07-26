@@ -13,20 +13,27 @@ import ObjectMapper
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var pageControlScrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var collectionViewHeightAnchor: NSLayoutConstraint!
     
-    let searchController = UISearchController(searchResultsController: nil)
-    var gameList = [GameModel]()
-    var filteredGameList = [GameModel]()
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var gameList = [GameModel]()
+    private var filteredGameList = [GameModel]()
     
-    var isSearchBarEmpty: Bool {
+    private let pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = 3
+        pageControl.backgroundColor = .clear
+        return pageControl
+    }()
+    
+    private var isSearchBarEmpty: Bool {
         let searchText = searchController.searchBar.text
         return searchText!.count >= 4 ? false : true
     }
     
-    var isFiltering: Bool {
+    private var isFiltering: Bool {
         return searchController.isActive && !isSearchBarEmpty
     }
     
@@ -34,15 +41,34 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         pageControlScrollView.delegate = self
-        
+        view.addSubview(pageControl)
         pageControl.addTarget(self, action: #selector(pageControlChange(_:)), for: .valueChanged)
         pageControlConfiguration()
-        scrollViewConfiguration()
         searchControllerConfiguration()
-        getGameList()
+        scrollViewConfiguration()
+        
     }
     
-    func getGameList() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        pageControl.frame = CGRect(x: 10, y: pageControlScrollView.frame.size.height * 1.45, width: pageControlScrollView.frame.size.width - 20 , height: 70)
+        
+        if pageControlScrollView.subviews.count == 2 {
+            scrollViewConfiguration()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        gameList.removeAll()
+        getGameList()
+        collectionView.reloadData()
+        
+    }
+    
+    private func getGameList() {
         
         let headers : HTTPHeaders = [
             "x-rapidapi-key": "c94aba3348mshcb6bec24ec775dcp1040d3jsnb1f15c31a317",
@@ -72,12 +98,20 @@ class HomeViewController: UIViewController {
                 }
                 self.spinner.isHidden = true
                 self.spinner.stopAnimating()
-                
+                getScrollImages()
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
                 self.spinner.isHidden = true
                 self.spinner.stopAnimating()
             }
+        }
+    }
+    
+    private func getScrollImages() {
+        for i in 0..<3 {
+            let image = UIImageView(frame: CGRect(x: CGFloat(i) * view.frame.size.width, y: 0, width: view.frame.width, height: pageControlScrollView.frame.height))
+            image.sd_setImage(with: URL(string: gameList[i].image ?? ""), placeholderImage: UIImage(named: "customImage"))
+            pageControlScrollView.addSubview(image)
         }
     }
 
@@ -87,26 +121,23 @@ extension HomeViewController: UIScrollViewDelegate {
     
     private func pageControlConfiguration() {
         pageControl.numberOfPages = 3
+        pageControl.pageIndicatorTintColor = .black
+        pageControl.currentPageIndicatorTintColor = .orange
         pageControl.backgroundColor = .clear
     }
     
     private func scrollViewConfiguration() {
         
-        pageControlScrollView.contentSize = CGSize(width: view.frame.size.width * 3, height: pageControlScrollView.frame.size.height)
+        pageControlScrollView.contentSize = CGSize(width: view.frame.size.width * 3, height: pageControlScrollView.frame.height)
         pageControlScrollView.isPagingEnabled = true
         pageControlScrollView.showsHorizontalScrollIndicator = false
+        pageControlScrollView.showsVerticalScrollIndicator = false
         
-        let colorList: [UIColor] = [.red, .green, .blue]
-        
-        for i in 0..<3 {
-            let page = UIView(frame: CGRect(x: CGFloat(i) * view.frame.size.width, y: 0, width: view.frame.width, height: pageControlScrollView.frame.height))
-            page.backgroundColor = colorList[i]
-            pageControlScrollView.addSubview(page)
-        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(floorf(Float(scrollView.contentOffset.x / scrollView.frame.size.width)))
+        let currentPage = floorf(Float(scrollView.contentOffset.x / scrollView.frame.size.width))
+        pageControl.currentPage = Int(currentPage)
     }
     
     @objc private func pageControlChange(_ sender: UIPageControl) {
@@ -176,7 +207,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = self.view.frame.width - 16.0 * 2
-        let height: CGFloat = 100.0
+        let height: CGFloat = 90.0
         
         return CGSize(width: width, height: height)
     }
@@ -186,12 +217,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 extension HomeViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
+        
+        activeSearchScreenConfiguration()
         let searchBar = searchController.searchBar
         filterContextForSearchText(searchText: searchBar.text!)
+        
+        if !searchController.isActive{
+            notActiveSearchScreenConfiguration()
+        }
     }
     
     private func searchControllerConfiguration() {
+        
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.placeholder = "Search Game"
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -204,6 +243,22 @@ extension HomeViewController: UISearchResultsUpdating {
         })
         
         collectionView.reloadData()
+    }
+    
+    func activeSearchScreenConfiguration() {
+        pageControl.isHidden = true
+        UIView.animate(withDuration: 0.4, animations: {
+            self.collectionViewHeightAnchor.constant = CGFloat(self.view.bounds.height - (self.navigationController?.navigationBar.bounds.height)!)
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func notActiveSearchScreenConfiguration() {
+        UIView.animate(withDuration: 0.4, animations: {
+            self.collectionViewHeightAnchor.constant = CGFloat(445.0)
+            self.view.layoutIfNeeded()
+        })
+        pageControl.isHidden = false
     }
     
 }
@@ -226,4 +281,3 @@ extension UICollectionView {
     }
     
 }
-

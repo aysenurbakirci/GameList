@@ -21,6 +21,8 @@ class TabBarController: UITabBarController {
     }
     
     func getFavouriteGames() {
+        
+        favoriteGameIdList.removeAll()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -40,6 +42,8 @@ class TabBarController: UITabBarController {
         } catch{
             print("Error")
         }
+        
+        print(favoriteGameIdList)
     }
     
     func isGameFavorite(game: GameModel) -> Bool{

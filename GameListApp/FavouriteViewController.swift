@@ -15,11 +15,17 @@ class FavouriteViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     var gameList = [GameModel]()
-    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        gameList.removeAll()
         getGameList()
+        collectionView.reloadData()
+        
     }
     
     func getGameList() {
@@ -109,7 +115,7 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = self.view.frame.width - 16.0 * 2
-        let height: CGFloat = 100.0
+        let height: CGFloat = 90.0
         
         return CGSize(width: width, height: height)
     }

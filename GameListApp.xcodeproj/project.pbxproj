@@ -123,12 +123,12 @@
 				24C595DC26A069C800E90ADC /* HomeViewController.swift */,
 				24C595A526A0302000E90ADC /* FavouriteViewController.swift */,
 				24C595D926A059D300E90ADC /* GameDetailViewController.swift */,
+				24C595E226A0995300E90ADC /* TabBarController.swift */,
 				24C595A726A0302000E90ADC /* Main.storyboard */,
 				24C595AD26A0302200E90ADC /* Assets.xcassets */,
 				24C595AF26A0302200E90ADC /* LaunchScreen.storyboard */,
 				24C595B226A0302200E90ADC /* Info.plist */,
 				24C595AA26A0302000E90ADC /* GameListApp.xcdatamodeld */,
-				24C595E226A0995300E90ADC /* TabBarController.swift */,
 			);
 			path = GameListApp;
 			sourceTree = "<group>";

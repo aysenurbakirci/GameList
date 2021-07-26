@@ -19,7 +19,7 @@ class GameDetailViewController: UIViewController {
     @IBOutlet weak var gameName: UILabel!
     @IBOutlet weak var gameRelease: UILabel!
     @IBOutlet weak var gameMetacritic: UILabel!
-    @IBOutlet weak var gameDescription: UILabel!
+    @IBOutlet weak var gameDescription: UITextView!
     
     var game: GameModel? = nil
     var gameIsFavoruite: Bool = false
@@ -33,8 +33,6 @@ class GameDetailViewController: UIViewController {
         gameName.text = game?.name ?? "Game Name"
         gameRelease.text = game?.released ?? "00.00.00"
         gameMetacritic.text = "\(game?.metacritc ?? 0.0)"
-        
-        gameDescription.numberOfLines = 0
         
         if gameIsFavoruite {
             imageButtonConfigurationDeleteFavourite()
@@ -82,7 +80,7 @@ extension GameDetailViewController {
     func imageButtonConfigurationAddFavourite() {
         
         likeClickImage.image = likeClickImage.image?.withRenderingMode(.alwaysTemplate)
-        likeClickImage.tintColor = UIColor.white
+        likeClickImage.tintColor = UIColor.black
         likeClickImage.isUserInteractionEnabled = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(addFavourite))
         likeClickImage.addGestureRecognizer(tapRecognizer)
@@ -101,6 +99,7 @@ extension GameDetailViewController {
     
     @objc func addFavourite() {
         
+        let tbc = self.tabBarController as! TabBarController
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         let newGameID = NSEntityDescription.insertNewObject(forEntityName: "FavouriteGames", into: context)
@@ -109,17 +108,18 @@ extension GameDetailViewController {
         do {
             try context.save()
             likeClickImage.tintColor = UIColor.orange
-            makeAlert(title: "Success", message: "Game is your favorites list now.")
+            tbc.getFavouriteGames()
+            print(tbc.favoriteGameIdList)
+            makeAlert(title: "Success", message: "Game is your favorites list now.", back: true)
         } catch {
-            makeAlert(title: "Error", message: "The game could not be added to your favorites list.")
+            makeAlert(title: "Error", message: "The game could not be added to your favorites list.", back: false)
         }
     }
     
     @objc func removeFavourite() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
         
+        let tbc = self.tabBarController as! TabBarController
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavouriteGames")
         do {
@@ -132,20 +132,26 @@ extension GameDetailViewController {
                     }
                 }
                 try context.save()
-                likeClickImage.tintColor = UIColor.white
-                makeAlert(title: "Success", message: "We're so sorry you don't like this game anymore.")
+                likeClickImage.tintColor = UIColor.black
+                tbc.getFavouriteGames()
+                print(tbc.favoriteGameIdList)
+                makeAlert(title: "Success", message: "We're so sorry you don't like this game anymore.", back: true)
             }
         } catch {
             print("Error")
-            makeAlert(title: "Error", message: "Game could not be removed from favorites.")
+            makeAlert(title: "Error", message: "Game could not be removed from favorites.", back: false)
         }
     }
 }
 
 extension GameDetailViewController {
-    func makeAlert(title: String, message: String) {
+    func makeAlert(title: String, message: String, back: Bool) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: {_ in 
+            if back{
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
         alert.addAction(okButton)
         present(alert, animated: true, completion: nil)
     }
